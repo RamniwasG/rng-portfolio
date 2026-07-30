@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Award,
@@ -28,13 +28,14 @@ import {
 
 const profile = {
   name: "RamniwasG",
-  role: "Senior Engineer",
-  email: "your.email@example.com",
-  location: "Ghazipur, Uttar Pradesh - India",
+  role: "Software Engineer",
+  email: "ramniwas.nitrr15@gmail.com",
+  location: "Uttar Pradesh - India",
   intro:
     "I design and build elegant digital products that turn complex workflows into focused, reliable experiences.",
   story:
     "I am a product-minded builder who enjoys the space between thoughtful interface design, strong engineering systems, and measurable business outcomes. My work is shaped by curiosity, clear communication, and a bias for shipping polished details that make products easier to trust.",
+  showcaseVideo: "/showcase.mp4",
 };
 
 const navItems = [
@@ -115,12 +116,12 @@ const skills = [
   {
     category: "Frontend",
     icon: Layers3,
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Design Systems"],
+    items: ["React", "TypeScript", "Next.js", "Vue.js", "Svelte.js", "Tailwind CSS", "AEM"],
   },
   {
     category: "Backend",
     icon: Database,
-    items: ["Node.js", "REST APIs", "PostgreSQL", "Auth", "Server Actions"],
+    items: ["Node.js", "REST APIs", "MongoDB", "GraphQL", "PostgreSQL"],
   },
   {
     category: "Product",
@@ -136,44 +137,192 @@ const skills = [
 
 const projects = [
   {
-    title: "Atlas Client Portal",
-    type: "SaaS Dashboard",
+    id: 11,
+    title: "Capstone Project - JiraBoard",
+    company: "Credera",
+    client: "Credera",
+    tenure: "Feb-2026 to Apr-2026",
+    role: "Senior Developer",
     description:
-      "Unified onboarding, document review, and account health into a single workspace that reduced handoff time by 38%.",
-    stack: ["Next.js", "Tailwind", "PostgreSQL", "Stripe"],
+      "This is a internal project for Credera to manage the Jira tickets and also provide the dashboard to see the status of the tickets. This application is used to create a common stack to provide seamless and rich feature user interface across all the brands and also separates by static sites vs ecommerce sites as well. Ecommerce sites provide all the ecom feature like displaying products, adding to cart and placing order based on location through different payment methods.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB", "Express"],
     icon: BriefcaseBusiness,
-    github: "https://github.com",
-    live: "https://example.com",
+    github: "#",
+    live: "#",
+    isOpen: false,
   },
   {
-    title: "SignalOps Intelligence",
-    type: "Analytics Platform",
+    id: 10,
+    title: "SEI 2023 AEM Capabilities",
+    company: "Credera",
+    client: "Capella University",
+    tenure: "Jun-2025 to Jan-2026",
+    role: "Senior Developer",
     description:
-      "Built a real-time metrics surface with explainable alerts, giving operators faster paths from anomaly to action.",
-    stack: ["React", "Charts", "Node.js", "WebSockets"],
+      "This is a central platform for all the SEI 2023 AEM Capabilities. This application is used to create a common stack to provide seamless and rich feature user interface across all the brands and also separates by static sites vs ecommerce sites as well. Ecommerce sites provide all the ecom feature like displaying products, adding to cart and placing order based on location through different payment methods.",
+    stack: ["HTML", "CSS", "AEM", "JQuery"],
+    icon: BriefcaseBusiness,
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 9,
+    title: "Envista Phase2 Implementations",
+    company: "Credera",
+    client: "Envista",
+    tenure: "Jan-2025 to May-2025",
+    role: "Senior Developer",
+    description:
+      "Envista is a part of the Envista family of dental operating companies, including more than 30 trusted brands and 125 years of dental experience. This application is used to create a common stack to provide seamless and rich feature user interface across all the brands and also separates by static sites vs ecommerce sites as well. Ecommerce sites provide all the ecom feature like displaying products, adding to cart and placing order based on location through different payment methods.",
+    stack: ["HTML", "CSS", "SiteStudio", "DDEV", "Docker"],
+    icon: BriefcaseBusiness,
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 8,
+    title: "WG Phase 3 Rollout for 8 sites",
+    company: "Credera",
+    client: "Wrench Group",
+    tenure: "Jan-2024 to Dec-2024",
+    role: "Senior Developer",
+    description:
+      "This application is used for fetch/update the jobs and related appointments that have been Scheduled/Hold for a certain date and assigned some of the most suitable technicians to provide the solution/service at home. Allowed to filter the jobs/technicians on many filter/sort criteria like appt modes, drive mode(truck/home), BUs and many more.",
+    stack: ["Svelte", "Svelte/Store", "svelte-quill", "svelte-splitpanes", "moment", "CSS"],
     icon: Rocket,
-    github: "https://github.com",
-    live: "https://example.com",
+    github: "#",
+    live: "#",
+    isOpen: false,
   },
   {
-    title: "Northstar Design Kit",
-    type: "Component System",
+    id: 7,
+    type: "web",
+    title: "Humana Staffing 2023",
+    company: "Credera",
+    client: "Humana",
+    tenure: "Feb-2023 to Oct-2023",
+    role: "Senior Software Engineer",
     description:
-      "Created an accessible component library and usage guidelines adopted across four product teams.",
-    stack: ["Storybook", "Radix UI", "Tailwind", "A11y"],
+      "A system that allows a customer/patient to onboard or upload his past history to monitor and also be able to add/search PCP and many other features.",
+    stack: ["VueJS", "Nucleus4", "HTML/CSS"],
     icon: Sparkles,
-    github: "https://github.com",
-    live: "https://example.com",
+    github: "#",
+    live: "#",
+    isOpen: false,
   },
   {
-    title: "Vaultflow Security Hub",
-    type: "Internal Tool",
+    id: 6,
+    type: "web",
+    title: "Platform Development of Micropore Tool",
+    company: "Innominds Pvt Ltd",
+    client: "AVG",
+    tenure: "Oct-2021 to Dec-2022",
+    role: "UI Engineer",
     description:
-      "Designed and shipped audit workflows that helped compliance teams resolve review queues with better traceability.",
-    stack: ["Next.js", "Prisma", "Auth", "Playwright"],
+      "This is a scientific tool based on AI/ML and Data Science for analyzing and processing the scanned data of eyes and provides human readable/understandable user interface. Also facilitates to create patient details manually and view all four eye quadrant details in a single page on the full view page. It includes the following details like pore details, NSI/PVF values, Center of Mass, Center of gravity etc.",
+    stack: ["React", "Redux", "MUI", "ThreeJS", "Axios", "HTML5/CSS3"],
     icon: ShieldCheck,
-    github: "https://github.com",
-    live: "https://example.com",
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 5,
+    type: "web",
+    title: "ECAT",
+    company: "Innominds Pvt Ltd",
+    client: "Ecat",
+    tenure: "Feb-2021 to Aug-2021",
+    role: "UI Engineer",
+    description:
+      "The project is for creating and managing selections/candidates under the Projects and calculating/generating the candidate based on type of selected data.",
+    stack: ["React", "Redux", "RollUp", "MUI", "Axios", "HTML5/CSS3"],
+    icon: Database,
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 4,
+    type: "web",
+    title: "POS",
+    company: "Qvantel Solutions Pvt Ltd",
+    client: "Qvantel",
+    tenure: "2019 - 2020",
+    role: "UI Developer",
+    description:
+      "POS is a stand-alone application for the omnichannel agents/salespersons who use this application for creating a new customer OR updating the services given to customers.",
+    stack: ["React", "Redux", "Redux/Saga", "TypeScript", "Consul", "Internal CSS"],
+    icon: Terminal,
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 3,
+    type: "web",
+    title: "InAppBi",
+    company: "Quanteon Solutions LLP",
+    client: "Seven Tablets",
+    tenure: "2018 - 2019",
+    role: "UI Developer",
+    description:
+      "InAppBI played a vital role in creating data sources, data models, and adding tables to these models, and building custom visualizations that look clean, modern, and fit seamlessly with a data-driven web portal backed. InAppBI proved to be a powerful and flexible framework for our needs, greatly reducing the time needed to generate and share insights from complex data.",
+    stack: ["React", "Redux", "Angular", "Reactstrap", "HTML/CSS"],
+    icon: Layers3,
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 2,
+    type: "mobile",
+    title: "ePropertyPlus",
+    company: "Quanteon Solutions LLP",
+    client: "Seven Tablets",
+    tenure: "Mar-2018 to Jul-2018",
+    role: "JavaScript Full Stack Developer",
+    description:
+      "ePropertyPlus is a web as well as a mobile application too. I worked on a mobile app. We are turning the whole epropertyplus.com website to mobile (Android + iOS) both using React + Redux with Java as backend with MySQL Database. it is an application to create, view, edit, update and manage the property, services, and users too. allow them to navigate to the property using map view, can see the street view, property longitude, and altitude also.",
+    stack: ["React", "Redux", "Thunk", "Bootstrap", "HTML/CSS", "NodeJS"],
+    icon: Rocket,
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 1,
+    type: "mobile",
+    title: "NextUp",
+    company: "Quanteon Solutions LLP",
+    client: "Seven Tablets",
+    tenure: "2017 - 2018",
+    role: "JavaScript Full Stack Developer",
+    description:
+      "Nextup is a mobile application that enables student-athletes and general sports enthusiasts to set goals, track daily progress, compare with athletes preparing for the same sports, create and respond to challenges. Worked as a full-stack developer on this project, developing backend services using Restify and mobile UI using the Ionic/AngularJS framework. This application requires media management (upload and play video files, capture camera recording, on-demand rank calculations). Uses S3 for storing media files (both videos and photos).",
+    stack: ["React", "Redux", "Angular", "NodeJS", "Express", "Bootstrap", "HTML/CSS"],
+    icon: GitBranch,
+    github: "#",
+    live: "#",
+    isOpen: false,
+  },
+  {
+    id: 0,
+    type: "web",
+    title: "Internal Project",
+    company: "Quanteon Solutions LLP",
+    client: "Quanteon Solutions LLP",
+    tenure: "2016 - 2017",
+    role: "Full Stack Developer",
+    description:
+      "A candidate hiring online tool that helps you to create a significant type of questions required and able to collect the provided output with different type of accuracy parameters like typing speed, number of backspace and many others.",
+    stack: ["React", "Angular", "NodeJS", "Express", "Bootstrap", "HTML/CSS", "MySQL"],
+    icon: Workflow,
+    github: "#",
+    live: "#",
+    isOpen: false,
   },
 ];
 
@@ -208,35 +357,62 @@ const personalWork = [
 ];
 
 const recentWork = {
-  title: "FocusBoard",
+  title: "Capstone Project",
   status: "Currently building",
-  category: "Personal productivity workspace",
+  category: "Internal Project",
   description:
     "A focused planning surface for tracking today's priorities, small build queues, and quick implementation notes without the weight of a full project manager.",
   image: "/recent-work-focusboard.svg",
   live: "https://example.com/focusboard",
   updated: "Updated this month",
-  stack: ["Next.js", "Tailwind CSS", "Local-first UX", "Micro-interactions"],
+  stack: ["Next.js", "Node.js", "Tailwind CSS", "lucide-react", "MongoDB"],
 };
 
 const certifications = [
   {
-    title: "Product Engineering Certification",
-    issuer: "Example Academy",
-    date: "Issued 2025",
-    image: "/certificate-product-engineering.svg",
-    credential: "https://example.com",
+    title: "AWS Certified Cloud Practitioner",
+    issuer: "AWS Training and Certification",
+    date: "Issued 2026",
+    image: "/certificate_0.png",
+    credential: "https://aws.amazon.com/verification",
     description:
-      "Focused on product discovery, scalable frontend architecture, and outcome-driven delivery practices.",
+      "Verified foundational cloud knowledge across compute, storage, networking, and AWS security best practices.",
   },
   {
     title: "Cloud Architecture Professional",
     issuer: "Example Cloud Institute",
     date: "Issued 2024",
-    image: "/certificate-cloud-architecture.svg",
+    image: "/certificate_2.png",
     credential: "https://example.com",
     description:
       "Covered resilient cloud systems, deployment strategy, observability, and secure infrastructure patterns.",
+  },
+  {
+    title: "Certified Frontend Architect",
+    issuer: "Modern Web Academy",
+    date: "Issued 2025",
+    image: "/certificate_3.png",
+    credential: "https://example.com",
+    description:
+      "Demonstrated expertise in scalable frontend architecture, performance optimization, and component-driven design.",
+  },
+  {
+    title: "Product Design Systems Specialist",
+    issuer: "DesignOps Institute",
+    date: "Issued 2025",
+    image: "/certificate_4.png",
+    credential: "https://example.com",
+    description:
+      "Validated skills in design system governance, accessible component libraries, and cross-team collaboration.",
+  },
+  {
+    title: "Full-Stack Engineering Certificate",
+    issuer: "Developer Academy",
+    date: "Issued 2023",
+    image: "/certificate_5.png",
+    credential: "https://example.com",
+    description:
+      "Focused on building modern web applications with end-to-end development, testing, and deployment workflows.",
   },
 ];
 
@@ -327,8 +503,34 @@ function SectionLabel({ children }) {
 }
 
 function SectionHeading({ eyebrow, title, children }) {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -100px 0px",
+      },
+    );
+
+    observer.observe(ref.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
+    <div
+      ref={ref}
+      className={`mx-auto mb-10 max-w-3xl text-center sm:mb-14 transition-transform duration-700 ease-out ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+      }`}
+    >
       <SectionLabel>{eyebrow}</SectionLabel>
       <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
         {title}
@@ -338,6 +540,68 @@ function SectionHeading({ eyebrow, title, children }) {
           {children}
         </p>
       ) : null}
+    </div>
+  );
+}
+
+function useReveal() {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -100px 0px" },
+    );
+
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return [ref, visible];
+}
+
+function RevealSection({ id, className, children }) {
+  const [ref, visible] = useReveal();
+
+  return (
+    <section
+      id={id}
+      ref={ref}
+      className={`${className} transition-all duration-700 ease-out ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+      }`}
+    >
+      {children}
+    </section>
+  );
+}
+
+function RevealItem({ direction = "up", className = "", children }) {
+  const [ref, visible] = useReveal();
+  const translateClass =
+    direction === "left"
+      ? visible
+        ? "translate-x-0 opacity-100"
+        : "-translate-x-8 opacity-0"
+      : direction === "right"
+      ? visible
+        ? "translate-x-0 opacity-100"
+        : "translate-x-8 opacity-0"
+      : visible
+      ? "translate-y-0 opacity-100"
+      : "translate-y-6 opacity-0";
+
+  return (
+    <div
+      ref={ref}
+      className={`${className} transition-all duration-700 ease-out ${translateClass}`}
+    >
+      {children}
     </div>
   );
 }
@@ -362,17 +626,28 @@ function ProjectCard({ project }) {
   return (
     <article className="group flex h-full flex-col rounded-[8px] border border-slate-200/80 bg-white/85 p-6 shadow-sm shadow-slate-950/5 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-xl hover:shadow-teal-950/10">
       <div className="flex items-start justify-between gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-[8px] bg-slate-950 text-white shadow-lg shadow-slate-950/20">
-          <Icon className="h-6 w-6" aria-hidden="true" />
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-[8px] bg-slate-950 text-white shadow-lg shadow-slate-950/20">
+            <Icon className="h-6 w-6" aria-hidden="true" />
+          </div>
+          <div>
+            <p className="text-xs text-slate-500">{project.company}</p>
+          </div>
         </div>
         <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">
-          {project.type}
+          {project.tenure}
         </span>
       </div>
       <h3 className="mt-6 text-xl font-semibold text-slate-950">
         {project.title}
       </h3>
-      <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">
+      <p className="mt-2 text-sm font-semibold text-teal-700">
+        {project.client}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-slate-600">
+        <span className="font-semibold text-slate-900">Role:</span> {project.role}
+      </p>
+      <p className="mt-4 flex-1 text-sm leading-6 text-slate-600">
         {project.description}
       </p>
       <div className="mt-5 flex flex-wrap gap-2">
@@ -385,7 +660,7 @@ function ProjectCard({ project }) {
           </span>
         ))}
       </div>
-      <div className="mt-6 flex items-center gap-3">
+      <div className="mt-6 flex flex-wrap items-center gap-3">
         <a
           href={project.github}
           target="_blank"
@@ -421,7 +696,7 @@ function CertificationCard({ certification }) {
           className="aspect-[1.55/1] w-full rounded-[6px] object-cover shadow-sm"
         />
       </div>
-      <div className="p-6">
+      {/* <div className="p-6">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div className="flex h-11 w-11 flex-none items-center justify-center rounded-[8px] bg-teal-700 text-white">
             <Award className="h-5 w-5" aria-hidden="true" />
@@ -448,7 +723,7 @@ function CertificationCard({ certification }) {
           View credential
           <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
         </a>
-      </div>
+      </div> */}
     </article>
   );
 }
@@ -602,6 +877,8 @@ function CareerStep({ step, index }) {
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAllCertifications, setShowAllCertifications] = useState(false);
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#f7f4ee] text-slate-900">
@@ -638,13 +915,18 @@ export default function Home() {
               </a>
             ))}
           </div>
-          <a
-            href={`mailto:${profile.email}`}
-            className="hidden items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:inline-flex"
-          >
-            <Mail className="h-4 w-4" aria-hidden="true" />
-            Email me
-          </a>
+          <div className="hidden items-center gap-3 sm:flex">
+            <span className="rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm shadow-slate-950/5">
+              +91 8686340975
+            </span>
+            <a
+              href={`mailto:${profile.email}`}
+              className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+            >
+              <Mail className="h-4 w-4" aria-hidden="true" />
+              Email me
+            </a>
+          </div>
           <button
             type="button"
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -690,7 +972,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <section
+      <RevealSection
         id="top"
         className="relative px-5 pb-20 pt-32 sm:px-8 sm:pb-24 lg:pt-36"
       >
@@ -717,13 +999,41 @@ export default function Home() {
                 View projects
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
-              <a
+              {/* <a
                 href={`mailto:${profile.email}`}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white/75 px-6 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 Start a conversation
-              </a>
+              </a> */}
+            </div>
+            <div className="mt-10 rounded-[32px] border border-slate-200 bg-white/90 p-5 shadow-xl shadow-slate-950/10 backdrop-blur sm:p-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-700">
+                    Showcase video
+                  </p>
+                  <h2 className="mt-2 text-xl font-semibold text-slate-950">
+                    Watch a quick walkthrough
+                  </h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+                    A short recorded demo that highlights my approach, process, and polished delivery.
+                  </p>
+                </div>
+                <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                  Recorded demo
+                </span>
+              </div>
+              <div className="mt-5 overflow-hidden rounded-[24px] border border-slate-200 bg-slate-950">
+                <video
+                  controls
+                  className="w-full bg-slate-950"
+                  poster="/video-poster.png"
+                >
+                  <source src={profile.showcaseVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
             <div className="mt-8 flex items-center gap-3">
               {socials.map((social) => (
@@ -773,7 +1083,7 @@ export default function Home() {
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-transparent p-5">
                   <div className="rounded-[18px] border border-white/15 bg-slate-900/80 p-4 text-white shadow-xl shadow-black/20 backdrop-blur">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-300">
-                      Senior Engineer
+                      Software Engineer
                     </p>
                     <p className="mt-2 text-2xl font-semibold">RamniwasG</p>
                     <p className="mt-2 text-sm leading-6 text-slate-300">
@@ -785,7 +1095,7 @@ export default function Home() {
               </div>
               <div className="mt-6 grid grid-cols-3 gap-3 text-center">
                 {[
-                  ["04+", "Projects"],
+                  ["18+", "Projects"],
                   ["02", "Certs"],
                   ["2026", "Portfolio"],
                 ].map(([value, label]) => (
@@ -805,9 +1115,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="about" className="px-5 py-20 sm:px-8">
+      <RevealSection id="about" className="px-5 py-20 sm:px-8">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <SectionLabel>About</SectionLabel>
@@ -828,7 +1138,7 @@ export default function Home() {
           <div className="rounded-[8px] border border-slate-200 bg-white/75 p-6 shadow-sm shadow-slate-950/5 sm:p-8">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal-700/15 bg-teal-50 px-3 py-1.5 text-sm font-semibold text-teal-800">
               <MapPin className="h-4 w-4" aria-hidden="true" />
-              Ghazipur, Uttar Pradesh - India
+              Uttar Pradesh - India
             </div>
             <p className="text-lg leading-8 text-slate-600">{profile.story}</p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -854,46 +1164,74 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="certifications" className="bg-white/55 px-5 py-20 sm:px-8">
+      <RevealSection id="certifications" className="bg-white/55 px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Certifications"
-            title="Verified learning, shown with room for the proof."
+            title="Verified learning and certifications."
           >
-            Certificate cards use a two-column layout on larger screens and keep
-            the artwork prominent for quick scanning.
+            
           </SectionHeading>
           <div className="grid gap-5 md:grid-cols-2">
-            {certifications.map((certification) => (
-              <CertificationCard
-                key={certification.title}
-                certification={certification}
-              />
-            ))}
+            {(showAllCertifications ? certifications : certifications.slice(0, 2)).map(
+              (certification, index) => (
+                <RevealItem
+                  key={certification.title}
+                  direction={index % 2 === 0 ? "left" : "right"}
+                  className="w-full"
+                >
+                  <CertificationCard certification={certification} />
+                </RevealItem>
+              ),
+            )}
+          </div>
+          <div className="mt-8 text-center">
+            <button
+              type="button"
+              onClick={() => setShowAllCertifications((current) => !current)}
+              className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+            >
+              {showAllCertifications ? "Show less" : "Show more"}
+            </button>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="projects" className="px-5 py-20 sm:px-8">
+      <RevealSection id="projects" className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
-            eyebrow="Featured projects"
-            title="Selected work with a bias toward measurable impact."
+            eyebrow="Projects"
+            title="Client projects with a bias toward measurable impact."
           >
             Editable sample projects that show the tone, structure, and level of
             specificity a real portfolio should have.
           </SectionHeading>
           <div className="grid gap-5 md:grid-cols-2">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
+            {(showAllProjects ? projects : projects.slice(0, 2)).map((project, index) => (
+              <RevealItem
+                key={project.title}
+                direction={index % 2 === 0 ? "left" : "right"}
+                className="w-full"
+              >
+                <ProjectCard project={project} />
+              </RevealItem>
             ))}
           </div>
+          <div className="mt-8 text-center">
+            <button
+              type="button"
+              onClick={() => setShowAllProjects((current) => !current)}
+              className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+            >
+              {showAllProjects ? "Show less" : "Show more"}
+            </button>
+          </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="experience" className="bg-slate-950 px-5 py-20 text-white sm:px-8">
+      <RevealSection id="experience" className="bg-slate-950 px-5 py-20 text-white sm:px-8">
         <div className="mx-auto max-w-5xl">
           <SectionHeading
             eyebrow="Experience"
@@ -906,33 +1244,34 @@ export default function Home() {
             <div className="absolute left-4 top-4 hidden h-[calc(100%-2rem)] w-px bg-white/15 sm:block" />
             <div className="space-y-5">
               {timeline.map((item) => (
-                <article
-                  key={`${item.period}-${item.title}`}
-                  className="relative rounded-[8px] border border-white/10 bg-white/[0.06] p-6 shadow-xl shadow-black/10 backdrop-blur"
-                >
-                  <div className="hidden sm:absolute sm:left-4 sm:top-8 sm:h-3 sm:w-3 sm:-translate-x-1/2 sm:rounded-full sm:bg-amber-300 sm:ring-8 sm:ring-slate-950" />
-                  <div className="sm:pl-8">
-                    <p className="text-sm font-semibold text-amber-200">
-                      {item.period}
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1 text-sm font-medium text-teal-200">
-                      {item.company}
-                    </p>
-                    <p className="mt-4 leading-7 text-slate-300">
-                      {item.summary}
-                    </p>
-                  </div>
-                </article>
+                <RevealItem key={`${item.period}-${item.title}`} direction="up" className="w-full">
+                  <article
+                    className="relative rounded-[8px] border border-white/10 bg-white/[0.06] p-6 shadow-xl shadow-black/10 backdrop-blur"
+                  >
+                    <div className="hidden sm:absolute sm:left-4 sm:top-8 sm:h-3 sm:w-3 sm:-translate-x-1/2 sm:rounded-full sm:bg-amber-300 sm:ring-8 sm:ring-slate-950" />
+                    <div className="sm:pl-8">
+                      <p className="text-sm font-semibold text-amber-200">
+                        {item.period}
+                      </p>
+                      <h3 className="mt-2 text-xl font-semibold text-white">
+                        {item.title}
+                      </h3>
+                      <p className="mt-1 text-sm font-medium text-teal-200">
+                        {item.company}
+                      </p>
+                      <p className="mt-4 leading-7 text-slate-300">
+                        {item.summary}
+                      </p>
+                    </div>
+                  </article>
+                </RevealItem>
               ))}
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="skills" className="bg-white/55 px-5 py-20 sm:px-8">
+      <RevealSection id="skills" className="bg-white/55 px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Skills"
@@ -942,37 +1281,42 @@ export default function Home() {
             to maintainable launch.
           </SectionHeading>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {skills.map((group) => {
+            {skills.map((group, index) => {
               const Icon = group.icon;
               return (
-                <article
+                <RevealItem
                   key={group.category}
-                  className="rounded-[8px] border border-slate-200 bg-[#fbfaf7] p-6 shadow-sm transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-950/10"
+                  direction={index % 2 === 0 ? "left" : "right"}
+                  className="w-full"
                 >
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-[8px] bg-teal-700 text-white">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-slate-950">
-                    {group.category}
-                  </h3>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700 ring-1 ring-slate-200"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </article>
+                  <article
+                    className="rounded-[8px] border border-slate-200 bg-[#fbfaf7] p-6 shadow-sm transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-950/10"
+                  >
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-[8px] bg-teal-700 text-white">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-950">
+                      {group.category}
+                    </h3>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {group.items.map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700 ring-1 ring-slate-200"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                </RevealItem>
               );
             })}
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="personal-work" className="px-5 py-20 sm:px-8">
+      <RevealSection id="personal-work" className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Personal work"
@@ -996,17 +1340,25 @@ export default function Home() {
                 exploring right now.
               </p>
             </div>
-            <RecentWorkCard work={recentWork} />
+            <RevealItem direction="left" className="w-full">
+              <RecentWorkCard work={recentWork} />
+            </RevealItem>
           </div>
           <div className="grid gap-5 lg:grid-cols-3">
-            {personalWork.map((work) => (
-              <PersonalWorkCard key={work.title} work={work} />
+            {personalWork.map((work, index) => (
+              <RevealItem
+                key={work.title}
+                direction={index % 2 === 0 ? "left" : "right"}
+                className="w-full"
+              >
+                <PersonalWorkCard work={work} />
+              </RevealItem>
             ))}
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="career" className="px-5 py-20 sm:px-8">
+      <RevealSection id="career" className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Career"
@@ -1017,13 +1369,19 @@ export default function Home() {
           </SectionHeading>
           <div className="relative grid gap-5 md:grid-cols-2">
             {careerJourney.map((step, index) => (
-              <CareerStep key={`${step.period}-${step.title}`} step={step} index={index} />
+              <RevealItem
+                key={`${step.period}-${step.title}`} 
+                direction={index % 2 === 0 ? "left" : "right"}
+                className="w-full"
+              >
+                <CareerStep step={step} index={index} />
+              </RevealItem>
             ))}
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section id="contact" className="px-5 py-20 sm:px-8">
+      <RevealSection id="contact" className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-4xl rounded-[8px] border border-slate-200 bg-white/80 p-8 text-center shadow-2xl shadow-slate-950/10 backdrop-blur sm:p-12">
           <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-rose-100 text-rose-700">
             <Mail className="h-6 w-6" aria-hidden="true" />
@@ -1050,7 +1408,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
 
       <footer className="border-t border-slate-200 px-5 py-8 sm:px-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-sm text-slate-600 sm:flex-row">
