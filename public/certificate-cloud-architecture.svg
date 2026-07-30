@@ -1,0 +1,17 @@
+<svg width="960" height="620" viewBox="0 0 960 620" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Cloud Architecture Certificate Placeholder</title>
+  <desc id="desc">A refined certificate placeholder with slate, rose, and teal accents.</desc>
+  <rect width="960" height="620" rx="28" fill="#F7F4EE"/>
+  <rect x="34" y="34" width="892" height="552" rx="20" fill="white" stroke="#CBD5E1" stroke-width="2"/>
+  <path d="M34 132H926" stroke="#0F172A" stroke-width="28"/>
+  <rect x="70" y="178" width="820" height="360" rx="16" fill="#FFFBF5" stroke="#E2E8F0" stroke-width="2"/>
+  <circle cx="480" cy="182" r="50" fill="#0F766E"/>
+  <path d="M445 188C449 170 465 158 483 162C492 145 517 146 525 165C539 166 550 177 550 191C550 206 538 218 522 218H460C445 218 434 207 434 193C434 191 434 189 435 187C438 187 441 187 445 188Z" fill="white"/>
+  <text x="480" y="284" text-anchor="middle" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Professional Certification</text>
+  <text x="480" y="334" text-anchor="middle" fill="#BE123C" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">Cloud Architecture</text>
+  <text x="480" y="384" text-anchor="middle" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="24">Awarded to RamniwasG</text>
+  <rect x="260" y="438" width="440" height="2" fill="#0F766E"/>
+  <text x="480" y="494" text-anchor="middle" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="20">Issued by Example Cloud Institute</text>
+  <rect x="118" y="220" width="74" height="74" rx="12" fill="#FFE4E6" stroke="#FDA4AF" stroke-width="2"/>
+  <path d="M140 258H170M155 243V273" stroke="#BE123C" stroke-width="7" stroke-linecap="round"/>
+</svg>
