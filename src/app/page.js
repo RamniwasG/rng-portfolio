@@ -595,8 +595,8 @@ export default function Home() {
               </div>
               <div className="mt-6 grid grid-cols-3 gap-3 text-center">
                 {[
-                  ["18+", "Projects"],
-                  ["02", "Certs"],
+                  [`${projects.length + personalWork.length}+`, "Projects"],
+                  ["02", "Certifications"],
                   ["2026", "Portfolio"],
                 ].map(([value, label]) => (
                   <div
