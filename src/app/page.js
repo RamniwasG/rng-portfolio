@@ -682,7 +682,6 @@ export default function Home() {
             eyebrow="Certifications"
             title="Verified learning and certifications."
           >
-            
           </SectionHeading>
           <div className="grid gap-5 md:grid-cols-2">
             {(showAllCertifications ? certifications : certifications.slice(0, 2)).map(
