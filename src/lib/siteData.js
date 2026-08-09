@@ -474,7 +474,7 @@ export const timeline = [
     title: "Senior Software Developer",
     company: "Innominds Software Inc.",
     summary:
-      "Deepened product delivery ownership with tighter collaboration on design systems, APIs, and launch readiness.",
+      "Successfully led the design and implementation of multiple application modules from scratch, taking full ownership from requirement analysis through deployment and post-release support. Influenced key technical decisions, optimized development workflows, promoted code reusability, and introduced best practices that significantly improved project velocity, maintainability, and long-term scalability.",
   },
   {
     period: "2019 - 2020",
