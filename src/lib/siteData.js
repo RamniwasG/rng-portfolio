@@ -110,6 +110,16 @@ export const skills = [
     items: ["Node.js", "Express", "REST APIs", "MongoDB", "PostgreSQL"],
   },
   {
+    category: "Cloud",
+    icon: Rocket,
+    items: ["AWS", "Azure", "Docker", "Kubernetes", "CI/CD", "Cloud Architecture"],
+  },
+  {
+    category: "DevOps",
+    icon: ShieldCheck,
+    items: ["GitHub Actions", "Monitoring", "Logging", "Automation", "Infrastructure as Code"],
+  },
+  {
     category: "Product",
     icon: PenTool,
     items: ["UX Strategy", "Prototyping", "Accessibility", "Analytics", "Research"],
@@ -117,7 +127,7 @@ export const skills = [
   {
     category: "Workflow",
     icon: Workflow,
-    items: ["Git", "CI/CD", "Testing", "Documentation", "Agile Delivery"],
+    items: ["Git", "Testing", "Documentation", "Agile Delivery", "Collaboration"],
   },
 ];
 
