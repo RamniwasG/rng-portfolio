@@ -716,15 +716,18 @@ export default function Home() {
           >
           </SectionHeading>
           <div className="grid gap-5 md:grid-cols-2">
-            {(showAllProjects ? projects : projects.slice(0, 2)).map((project, index) => (
-              <RevealItem
-                key={project.title}
-                direction={index % 2 === 0 ? "left" : "right"}
-                className="w-full"
-              >
-                <ProjectCard project={project} />
-              </RevealItem>
-            ))}
+            {(showAllProjects ? projects : projects.slice(0, 4))
+              .slice()
+              .sort((a, b) => Number(b.featured) - Number(a.featured))
+              .map((project, index) => (
+                <RevealItem
+                  key={project.title}
+                  direction={index % 2 === 0 ? "left" : "right"}
+                  className="w-full"
+                >
+                  <ProjectCard project={project} />
+                </RevealItem>
+              ))}
           </div>
           <div className="mt-8 text-center">
             <button
@@ -778,7 +781,7 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection id="skills" className="bg-amber-50 px-5 py-20 sm:px-8">
+      <RevealSection id="skills" className="bg-[linear-gradient(135deg,#fffdf8_0%,#fef3c7_100%)] px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Skills"
@@ -787,29 +790,57 @@ export default function Home() {
             Grouped capabilities that support the full path from ambiguous idea
             to maintainable launch.
           </SectionHeading>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {skills.map((group, index) => {
               const Icon = group.icon;
+              const accentClass = [
+                "from-teal-500 via-emerald-400 to-cyan-400",
+                "from-sky-500 via-blue-400 to-indigo-400",
+                "from-violet-500 via-fuchsia-400 to-purple-400",
+                "from-amber-500 via-orange-400 to-rose-400",
+              ][index % 4];
+              const badgeClass = [
+                "border-teal-100 bg-teal-50 text-teal-700",
+                "border-sky-100 bg-sky-50 text-sky-700",
+                "border-violet-100 bg-violet-50 text-violet-700",
+                "border-amber-100 bg-amber-50 text-amber-700",
+              ][index % 4];
+              const iconClass = [
+                "from-teal-600 to-emerald-500 shadow-teal-600/20",
+                "from-sky-600 to-blue-500 shadow-sky-600/20",
+                "from-violet-600 to-fuchsia-500 shadow-violet-600/20",
+                "from-amber-600 to-orange-500 shadow-amber-600/20",
+              ][index % 4];
+
               return (
                 <RevealItem
                   key={group.category}
                   direction={index % 2 === 0 ? "left" : "right"}
-                  className="w-full"
+                  className="h-full w-full"
                 >
-                  <article
-                    className="rounded-[8px] border border-slate-200 bg-[#fbfaf7] p-6 shadow-sm transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-950/10"
-                  >
-                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-[8px] bg-teal-700 text-white">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
+                  <article className="group relative flex h-full min-h-[290px] flex-col overflow-hidden rounded-[20px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_20px_45px_-25px_rgba(15,23,42,0.35)] backdrop-blur transition duration-300 hover:-translate-y-2 hover:border-teal-300 hover:shadow-[0_25px_60px_-20px_rgba(13,148,136,0.35)]">
+                    <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accentClass}`} />
+                    <div className="flex items-start justify-between gap-3">
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${iconClass} text-white shadow-lg`}>
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </div>
+                      <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${badgeClass}`}>
+                        Core
+                      </span>
                     </div>
-                    <h3 className="text-lg font-semibold text-slate-950">
-                      {group.category}
-                    </h3>
-                    <div className="mt-4 flex flex-wrap gap-2">
+                    <div className="mt-5 flex-1">
+                      <h3 className="text-lg font-semibold text-slate-950">
+                        {group.category}
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">
+                        A focused set of capabilities for creating polished, reliable experiences.
+                      </p>
+                    </div>
+                    <div className="mt-5 flex flex-wrap gap-2">
                       {group.items.map((item) => (
                         <span
                           key={item}
-                          className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700 ring-1 ring-slate-200"
+                          className="rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700 transition group-hover:border-teal-200 group-hover:bg-teal-50 group-hover:text-teal-800"
                         >
                           {item}
                         </span>
