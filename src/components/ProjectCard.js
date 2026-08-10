@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowUpRight, GitBranch } from "lucide-react";
+import { useState } from "react";
 
 function getOrgLogoSrc(company) {
   const normalizedCompany = (company || "").toLowerCase();
@@ -16,6 +17,15 @@ export default function ProjectCard({ project }) {
   const thumbnail = project.thumbnail || "/project-images/no-image.svg";
   const isFeatured = Boolean(project.featured);
   const orgLogoSrc = getOrgLogoSrc(project.company);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
+
+  const galleryImages = project.gallery?.length ? project.gallery : [thumbnail];
+  const words = (project.description || "").split(/\s+/).filter(Boolean);
+  const previewText = words.slice(0, 50).join(" ");
+  const isTruncated = words.length > 50;
+  const descriptionText = isExpanded || !isTruncated ? project.description : `${previewText}${"..."}`;
 
   return (
     <article
@@ -73,19 +83,75 @@ export default function ProjectCard({ project }) {
             <span className="font-semibold text-slate-900">Role:</span> {project.role}
           </p>
         </div>
-        <div className="flex-none">
+        <div
+          className="relative flex-none"
+          onMouseEnter={() => setIsGalleryOpen(true)}
+          onMouseLeave={() => setIsGalleryOpen(false)}
+          onFocus={() => setIsGalleryOpen(true)}
+          onBlur={() => setIsGalleryOpen(false)}
+        >
           <Image
-            src={thumbnail}
+            src={galleryImages[activeGalleryIndex] || thumbnail}
             alt={`${project.title} thumbnail`}
             width={100}
             height={60}
             className="h-[60px] w-[100px] rounded-[8px] border border-slate-200 object-cover"
           />
+          {galleryImages.length > 1 ? (
+            <div className="absolute inset-x-2 bottom-2 flex items-center justify-center gap-1.5 rounded-full bg-slate-950/75 px-2 py-1 backdrop-blur">
+              {galleryImages.map((_, index) => (
+                <button
+                  key={`${project.title}-dot-${index}`}
+                  type="button"
+                  aria-label={`Show gallery image ${index + 1}`}
+                  onClick={() => setActiveGalleryIndex(index)}
+                  className={`h-2.5 w-2.5 rounded-full transition ${
+                    activeGalleryIndex === index ? "bg-white" : "bg-white/50"
+                  }`}
+                />
+              ))}
+            </div>
+          ) : null}
+          {isGalleryOpen && galleryImages.length > 1 ? (
+            <div className="absolute left-1/2 top-full z-20 mt-3 w-[240px] -translate-x-1/2 rounded-[12px] border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-950/15">
+              <Image
+                src={galleryImages[activeGalleryIndex] || thumbnail}
+                alt={`${project.title} gallery preview`}
+                width={480}
+                height={300}
+                className="h-[140px] w-full rounded-[8px] object-cover"
+              />
+              <div className="mt-2 flex items-center justify-center gap-1.5">
+                {galleryImages.map((_, index) => (
+                  <button
+                    key={`${project.title}-popup-dot-${index}`}
+                    type="button"
+                    aria-label={`Preview gallery image ${index + 1}`}
+                    onClick={() => setActiveGalleryIndex(index)}
+                    className={`h-2.5 w-2.5 rounded-full transition ${
+                      activeGalleryIndex === index ? "bg-teal-600" : "bg-slate-300"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
-      <p className="mt-4 flex-1 text-sm leading-6 text-slate-600">
-        {project.description}
-      </p>
+      <div className="mt-4 flex-1">
+        <p className="text-sm leading-6 text-slate-600">
+          {descriptionText}
+        </p>
+        {isTruncated ? (
+          <button
+            type="button"
+            onClick={() => setIsExpanded((current) => !current)}
+            className="mt-2 text-sm font-semibold text-teal-700 transition hover:text-teal-800"
+          >
+            {isExpanded ? "Show less" : "Show more"}
+          </button>
+        ) : null}
+      </div>
       <div className="mt-5 flex flex-wrap gap-2">
         {project.stack.map((item) => (
           <span
@@ -97,24 +163,28 @@ export default function ProjectCard({ project }) {
         ))}
       </div>
       <div className="mt-6 flex flex-wrap items-center gap-3">
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-4"
-        >
-          <GitBranch className="h-4 w-4" aria-hidden="true" />
-          Code
-        </a>
-        <a
-          href={project.live}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-4"
-        >
-          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          Live
-        </a>
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-4"
+          >
+            <GitBranch className="h-4 w-4" aria-hidden="true" />
+            Code
+          </a>
+        )}
+        {project.live && (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 transition hover:text-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-4"
+          >
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            Live
+          </a>
+        )}
       </div>
     </article>
   );

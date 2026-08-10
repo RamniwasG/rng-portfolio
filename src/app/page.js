@@ -683,8 +683,8 @@ export default function Home() {
             title="Verified learning and certifications."
           >
           </SectionHeading>
-          <div className="grid gap-5 md:grid-cols-2">
-            {(showAllCertifications ? certifications : certifications.slice(0, 2)).map(
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {(showAllCertifications ? certifications : certifications.slice(0, 3)).map(
               (certification, index) => (
                 <RevealItem
                   key={certification.title}
@@ -715,10 +715,10 @@ export default function Home() {
             title="Client Projects"
           >
           </SectionHeading>
-          <div className="grid gap-5 md:grid-cols-2">
-            {(showAllProjects ? projects : projects.slice(0, 4))
-              .slice()
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {[...projects]
               .sort((a, b) => Number(b.featured) - Number(a.featured))
+              .slice(0, showAllProjects ? projects.length : 3)
               .map((project, index) => (
                 <RevealItem
                   key={project.title}
