@@ -342,9 +342,45 @@ export default function Home() {
       console.error("Copy failed", err);
     }
   };
-  const [selectedNav, setSelectedNav] = useState(null);
+  const [selectedNav, setSelectedNav] = useState(navItems[0]?.href ?? null);
   const [subscribeNewsletter, setSubscribeNewsletter] = useState(false);
   const [contactStatus, setContactStatus] = useState("");
+
+  useEffect(() => {
+    const sectionIds = navItems
+      .map((item) => item.href)
+      .filter((href) => href.startsWith("#"))
+      .map((href) => href.slice(1));
+
+    if (!sectionIds.length) return;
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleEntries.length > 0) {
+          const activeSectionId = visibleEntries[0].target.id;
+          setSelectedNav(`#${activeSectionId}`);
+        }
+      },
+      {
+        threshold: [0.2, 0.4, 0.6],
+        rootMargin: "-20% 0px -45% 0px",
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleContactSubmit = (event) => {
     event.preventDefault();
