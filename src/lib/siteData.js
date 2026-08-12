@@ -61,7 +61,7 @@ export const profile = {
     "Crafting modern digital products with over 9+ years of application development experience, specializing in high-performance web, desktop, and mobile applications.",
   story:
     "I am a product-minded builder who enjoys the space between thoughtful interface design, strong engineering systems, and measurable business outcomes. My work is shaped by curiosity, clear communication, and a bias for shipping polished details that make products easier to trust.",
-  showcaseVideo: "/showcase.mp4",
+  showcaseVideo: "/selfintro.mp4",
 };
 
 export const navItems = [

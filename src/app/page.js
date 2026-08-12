@@ -549,22 +549,22 @@ export default function Home() {
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-700">
-                    Showcase video
+                    Introduction video
                   </p>
                   <h2 className="mt-2 text-xl font-semibold text-slate-950">
                     Watch a quick walkthrough
                   </h2>
                   
                 </div>
-                <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-                  Demo
-                </span>
               </div>
               <div className="mt-5 overflow-hidden rounded-[24px] border border-slate-200 bg-slate-950">
                 <video
                   controls
                   className="w-full bg-slate-950"
                   poster="/video-poster.png"
+                  posterWidth="180"
+                  posterHeight="200"
+                  style={{ height: "15em" }}
                 >
                   <source src={profile.showcaseVideo} type="video/mp4" />
                   Your browser does not support the video tag.
